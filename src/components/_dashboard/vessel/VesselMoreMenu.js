@@ -1,0 +1,172 @@
+import { useRef, useState } from 'react';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { Icon } from '@iconify/react';
+import trash2Outline from '@iconify/icons-eva/trash-2-outline';
+import moreVerticalFill from '@iconify/icons-eva/more-vertical-fill';
+import editOutline from '@iconify/icons-eva/edit-outline';
+// modal
+import Modal from '@material-ui/core/Modal';
+import { makeStyles } from '@material-ui/styles';
+
+// material
+import {
+  Button,
+  Menu,
+  MenuItem,
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  TextField
+} from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'scroll'
+  },
+  paper: {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    overflow: 'scroll'
+  }
+}));
+
+// ----------------------------------------------------------------------
+
+export default function UserMoreMenu({ idVessel, nameVessel, sendInformation }) {
+  const ref = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  // Modal
+  const [openModal, setOpenModal] = useState(false);
+
+  const classes = useStyles();
+
+  const [name, setName] = useState(nameVessel);
+
+  const handleOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleClose = () => {
+    setOpenModal(false);
+  };
+
+  const deleteVessel = () => {
+    axios
+      .delete(`${process.env.REACT_APP_BASE_URL}/vessel/${idVessel}`, {
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`
+        }
+      })
+      .then((value) => {
+        console.log('Delete Vessel success !');
+        sendInformation(value);
+        showSuccessToastSupprimer();
+      })
+      .catch(() => {});
+  };
+
+  const modifyVessel = () => {
+    axios
+      .put(
+        `${process.env.REACT_APP_BASE_URL}/vessel/${idVessel}`,
+        {
+          name
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`
+          }
+        }
+      )
+      .then((value) => {
+        console.log('Value : ', value);
+        sendInformation(value.data);
+        setIsOpen(false);
+        handleClose();
+        showSuccessToastModifier();
+      })
+      .catch(() => {});
+  };
+
+  // React-Toastify-Notification
+  const showSuccessToastSupprimer = () => {
+    toast.warning('Navire a été supprimé avec succès', {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000
+    });
+  };
+
+  const showSuccessToastModifier = () => {
+    toast.success('Navire a été modifié avec succès', {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000
+    });
+  };
+
+  return (
+    <>
+      <ToastContainer />
+      {/* <CheckUserAuth /> */}
+      {openModal ? (
+        <Modal
+          aria-describedby="simple-modal-description"
+          className={classes.modal}
+          open={openModal}
+          onClose={handleClose}
+        >
+          <div className={classes.paper}>
+            <h2 id="simple-modal-title">Modifier le Port</h2>
+            <TextField
+              label="Saisissez le nom de Port"
+              variant="outlined"
+              style={{ marginTop: 5, marginBottom: 5 }}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <Button onClick={() => modifyVessel()} variant="contained">
+              Sauvegarder
+            </Button>
+          </div>
+        </Modal>
+      ) : null}
+      <IconButton ref={ref} onClick={() => setIsOpen(true)}>
+        <Icon icon={moreVerticalFill} width={20} height={20} />
+      </IconButton>
+
+      <Menu
+        open={isOpen}
+        anchorEl={ref.current}
+        onClose={() => setIsOpen(false)}
+        PaperProps={{
+          sx: { width: 200, maxWidth: '100%' }
+        }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <MenuItem sx={{ color: 'blue' }} onClick={() => handleOpen()}>
+          <ListItemIcon>
+            <Icon icon={editOutline} width={24} height={24} />
+          </ListItemIcon>
+          <ListItemText primary=" Modifier " primaryTypographyProps={{ variant: 'body2' }} />
+        </MenuItem>
+        <MenuItem sx={{ color: 'red' }} onClick={() => deleteVessel()}>
+          <ListItemIcon>
+            <Icon icon={trash2Outline} width={24} height={24} />
+          </ListItemIcon>
+          <ListItemText primary=" Effacer " primaryTypographyProps={{ variant: 'body2' }} />
+        </MenuItem>
+      </Menu>
+    </>
+  );
+}
