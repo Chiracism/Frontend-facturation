@@ -68,9 +68,10 @@ class ComponentToPrint extends React.PureComponent {
             <hr style={{ opacity: 1, color: 'blue', backgroundColor: 'blue', height: '3px' }} />
           </div> */}
         </div>
-        <h3 className="print-source" style={{ textAlign: 'center' }}>
-          NOTE DE DEBIT ...../20
-        </h3>
+        <br />
+        <h2 className="print-source" style={{ textAlign: 'center' }}>
+          NOTE DE DEBIT ...../20....
+        </h2>
         <p className="print-source" style={{ textAlign: 'right', margin: '2rem 1rem 3rem 0' }}>
           <strong>Client</strong> : <span>{client}</span>
           <br />
@@ -130,11 +131,12 @@ class ComponentToPrint extends React.PureComponent {
             </tbody>
           </table>
         </div>
+        <br />
         <div
           className="print-source"
           style={{
             position: 'absolute',
-            bottom: '15%',
+            bottom: '25%',
             right: 0,
             textAlign: 'right',
             margin: '3rem 1rem 3rem 0'
@@ -152,6 +154,26 @@ class ComponentToPrint extends React.PureComponent {
           <p>
             <strong>Date</strong> : {dates}
           </p>
+        </div>
+        <br />
+        <br />
+        <div
+          className="print-source"
+          style={{
+            bottom: '10%',
+            marginTop: '5rem',
+            width: '100%',
+            textAlign: 'center',
+            margin: '12rem 1rem 2rem 1rem'
+          }}
+        >
+          <table className="print-source" style={{ width: '100%' }}>
+            <thead>
+              <th>Sous-directeur des Opérations</th>
+              {/* <th>QUANTITE</th> */}
+              <th>Directeur Provincial</th>
+            </thead>
+          </table>
         </div>
         <div
           className="print-source"

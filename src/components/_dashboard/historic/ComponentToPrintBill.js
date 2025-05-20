@@ -39,7 +39,7 @@ class ComponentToPrintBill extends React.PureComponent {
         >
           <img
             className="print-source"
-            src="/static/logoLMC.png"
+            src="/static/LogoLMC.png"
             alt="Logo"
             justifyContent="center"
             position="center"

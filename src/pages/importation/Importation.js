@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 
@@ -33,6 +34,14 @@ export default function Importation() {
     return true;
   }
 
+  // React-Toastify-Notification
+  const showSuccessToast = () => {
+    toast.success('La Fiche de Facturation a été enregistré avec succès', {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000
+    });
+  };
+
   // Print Facture
   function printFacture() {
     console.log('polo : ', polo);
@@ -42,7 +51,7 @@ export default function Importation() {
 
     const current = new Date();
     // const date = `${current.getDate()}-${current.getMonth() + 1}-${current.getFullYear()}`;
-    const date = `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}`;
+    const date = `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate() + 1}-`;
     axios
       .post(
         `${process.env.REACT_APP_BASE_URL}/historic2/`,
@@ -86,7 +95,9 @@ export default function Importation() {
           }
         }
       )
-      .then(() => {})
+      .then(() => {
+        showSuccessToast();
+      })
       .catch(() => {});
   }
 
@@ -118,7 +129,7 @@ export default function Importation() {
    * Currencies
    */
   const [dollar, setDollar] = useState(2850);
-  const [euro, setEuro] = useState(32892);
+  const [euro, setEuro] = useState(3289);
 
   useEffect(() => {
     // Dollar

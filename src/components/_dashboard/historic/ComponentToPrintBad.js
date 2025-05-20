@@ -74,11 +74,14 @@ class ComponentToPrintBad extends React.PureComponent {
           <span>{/* <strong>{serie}</strong> */}</span>
         </p>
         <h1 className="print-source" style={{ textAlign: 'center' }}>
-          COPIE
+          BON A DELIVRER N°...../20...
         </h1>
-        <h3 className="print-source" style={{ textAlign: 'center' }}>
+        {/* <h1 className="print-source" style={{ textAlign: 'center' }}>
+          COPIE
+        </h1> */}
+        {/* <h3 className="print-source" style={{ textAlign: 'center' }}>
           BON A DELIVRER N°
-        </h3>
+        </h3> */}
         {/* <p className="print-source" style={{ textAlign: 'left', margin: '3rem 1rem 0rem 1rem' }}>
           <strong>Client</strong> : <span>{client}</span>
         </p> */}
@@ -174,6 +177,11 @@ class ComponentToPrintBad extends React.PureComponent {
         >
           <span style={{ fontWeight: 'bold' }}>DESTINATION CONTENEUR(S)</span>
           {}
+          <br />
+          <br />
+          <h3 className="print-source" style={{ textAlign: 'center' }}>
+            .................................................................
+          </h3>
           <p className="print-source" style={{ textAlign: 'left', margin: '3rem 1rem 2rem 7rem' }}>
             Ce Bon à délivrer contre présentation de l'original du connaisssement ou tout document
             valant connaissement original. L'Armateur ne peut en aucun cas être tenu responsable des

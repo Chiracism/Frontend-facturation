@@ -33,7 +33,12 @@ export default function SidebarConfig() {
           icon: getIcon(pieChart2Fill)
         },
         {
-          title: 'Fiche de facturation',
+          title: 'Declaration pour obtenir Bill of Lading(Connaissement)',
+          path: '/dashboard/exportation',
+          icon: getIcon(fileTextFill)
+        },
+        {
+          title: 'Fiche de facturation (DIRPRO-KC)',
           path: '/dashboard/importation',
           icon: getIcon(fileTextFill)
         },
@@ -42,11 +47,11 @@ export default function SidebarConfig() {
         //   path: '/dashboard/bad',
         //   icon: getIcon(fileTextFill)
         // },
-        {
-          title: 'Bill of Lading',
-          path: '/dashboard/exportation',
-          icon: getIcon(fileTextFill)
-        },
+        // {
+        //   title: 'Bill of Lading',
+        //   path: '/dashboard/exportation',
+        //   icon: getIcon(fileTextFill)
+        // },
         {
           title: 'Vessel',
           path: '/dashboard/vessel',
@@ -91,7 +96,7 @@ export default function SidebarConfig() {
           icon: getIcon(pieChart2Fill)
         },
         {
-          title: 'Bill of Lading',
+          title: 'Declaration pour obtenir Bill of Lading(Connaissement)',
           path: '/dashboard/exportation',
           icon: getIcon(fileTextFill)
         },
